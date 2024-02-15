@@ -1,0 +1,148 @@
+syntax="proto3";
+
+
+package chat ;
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+
+service Chat
+{
+    //no stream
+    //rpc Login(User) returns (Validation) {}
+
+   // rpc Messaging(stream StreamRequest) returns (StreamResponse){}
+
+   //1
+   rpc ListChatRooms(User) returns (stream ChatRoom){}
+
+   //2
+   rpc ListUserRoom(RequestUserRoomList) returns (stream UserListResponse){}
+
+   //3
+   rpc JoinChat(JoinChatRequest) returns (stream JoinChatResponse){}
+
+
+   rpc SendMessage(SendMessageRequest) returns (Empty){}
+
+   rpc TerminateStream(User) returns(Empty){}
+
+   rpc ResetStream(User) returns (Empty){}
+
+    //4
+    rpc CreateRoom(RequestCreateNewRoom) returns (Validation){}
+
+
+    //6 
+    rpc LeaveRoom(RequestLeaveRoom) returns (Empty){}
+
+    rpc FreeUser(User) returns (FreeUserResponse){}
+
+
+
+   //rpc Stream(Request) returns (stream Response){}
+
+}
+
+message FreeUserResponse{
+    string validation=1;
+}
+
+message UserListResponse{
+    oneof info
+    {
+    User user=1;
+    Validation validation = 2;
+    }
+}
+message JoinChatResponse{
+    oneof rep{
+        Message message=1;
+        Validation validation=2;
+        string join_confirm=3;
+
+    }
+}
+
+message Error{
+    string error_message =1;
+}
+message RequestCreateNewRoom{
+    string room_name=1;
+    User user=2;
+}
+
+
+message SendMessageRequest{
+    User user=1;
+    string message=2;
+    string room_name=3;
+}
+
+message RequestUserRoomList
+{
+    string room_name=1;
+    string user_name=2;
+}
+
+message RequestLeaveRoom{
+    string room_name=1;
+    string user_name=2;
+}
+
+message Empty{}
+
+message ChatRoom{
+    string name = 1;
+    repeated User chatters =2;
+    repeated Message messages=3;
+}
+
+message JoinChatRequest{
+    string room_name =1 ;
+    User user =2;
+}
+
+message User{
+    string name = 1;
+}
+
+message Validation{
+    string message=1;
+}
+
+message Response
+{
+//    google.protobuf.Timestamp timestamp = 1;
+
+//    string reponse_info=1;
+
+    oneof content {
+
+        ChatRoom chatroom = 1;
+        User user = 2;
+
+
+        Message client_message = 3;
+        string info_message= 4;
+
+    }
+    
+}
+
+message Message {
+    google.protobuf.Timestamp timestamp = 1;
+    User user = 2;
+    string message = 3;
+}
+
+
+message Request{
+    string command =1;
+ 
+    optional string chat_name=2;
+    optional User user_request =3;
+    
+}
+

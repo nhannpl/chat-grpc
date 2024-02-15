@@ -1,0 +1,24 @@
+{
+    "Math": {
+        "messages": {"Alice @2024-02-08T12:00:00":"Hello, I am alice", "Branden @2024-02-08T12:02:00":"Hello Alice, I am Branden", "Alice @2024-02-08T12:00:03":"Nice to meet you."},
+        "chatters": [
+
+        ]
+    },
+    "Eng": {
+        "messages": {"Emily @2024-02-08T12:00:00":"Good Evening everyone. I am Emily!", 
+                    "John @2024-02-08T12:00:15":"Good Evening everyone Emily. I am John!"},
+        "chatters": [
+            "Emily"
+        ]
+    },
+    "CS": {
+        "messages": {"Ara @2024-02-08T12:00:00":"Hi class!",
+                        "Edward @2024-02-08T12:00:07":"Hello.",
+                        "Ara @2024-02-08T12:00:20":"Let's meet at the school."},
+        "chatters": [
+            "Ara",
+            "Edward"
+        ]
+    }
+}
