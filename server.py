@@ -52,6 +52,7 @@ class ChatServicer(chat_pb2_grpc.ChatServicer):#inheriting here from the protobu
                             
                             yield chat_pb2.JoinChatResponse(join_confirm=no_message)
                             print("There is no message in this room "+ room.name)
+                            
                         else:
                             while last_index<len(room.messages):
                                 yield chat_pb2.JoinChatResponse(
@@ -86,18 +87,30 @@ class ChatServicer(chat_pb2_grpc.ChatServicer):#inheriting here from the protobu
                     if room.name==request.room_name:
                         found_chat=room
 
-        
-        timestamp = Timestamp()
-        timestamp.FromDatetime(datetime.fromtimestamp(time.time()))
-        #print("the chat to send  is "+request.room_name)
+        if found_chat is  None:
+            return chat_pb2.SendMessageResponse(message=request.room_name+" does not exist. Cannot send message in this room.\n")
+        else:
+            found_user=None
+            for user in found_chat.chatters:
+                if user.name==request.user.name:
+                    found_user=request.user
+                    break
+            if found_user is not None:
+            
+                timestamp = Timestamp()
+                timestamp.FromDatetime(datetime.fromtimestamp(time.time()))
 
-        found_chat.messages.append(chat_pb2.Message(
-                                    timestamp=timestamp, 
-                                    user=request.user,
-                                    message=request.message))
-        print("Appended messgae "+request.message+" in chat "+request.room_name)
-        
-        return chat_pb2.Empty()
+                found_chat.messages.append(chat_pb2.Message(
+                                            timestamp=timestamp, 
+                                            user=request.user,
+                                            message=request.message))
+                print("Appended messgae "+request.message+" in chat "+request.room_name)
+            
+                return chat_pb2.SendMessageResponse(empty=chat_pb2.Empty())
+            else:
+                return chat_pb2.SendMessageResponse(message="User "+request.user.name+" is not in this "+request.room_nam+" chat room.\n")
+            
+            
     def ListUserRoom(self, request, context) :
     #ListUserRoom(RequestUserRoomList) returns (stream User){}
             self.user_db[request.user_name]=False
@@ -107,8 +120,8 @@ class ChatServicer(chat_pb2_grpc.ChatServicer):#inheriting here from the protobu
                 if room.name==request.room_name:
                     found_chat=room
             if found_chat is not None:
-                    last_index=0
-               # while True and not self.user_db[request.user_name]:
+                last_index=0
+                while True and not self.user_db[request.user_name]:
                     while last_index<len(found_chat.chatters):
                         user=found_chat.chatters[last_index]
                         last_index+=1
@@ -134,21 +147,20 @@ class ChatServicer(chat_pb2_grpc.ChatServicer):#inheriting here from the protobu
                         print("Remove user "+request.user_name+"from database")
                         return chat_pb2.Empty()
         
-        #This lien shouldn't ????  
         
               
-        print("WARNING: Something wrong. How to leave if the user is not in the chat")
+        #return chat_pb2.Validation(mesage=)
             
         
     
     def ListChatRooms(self, request:chat_pb2.User, context):
-            last_index=0
-            print("in list chat rooms")
-        
-            rooms=self.chat_db
-            self.user_db[request.name]=False
+        last_index=0
+        #print("in list chat rooms")
+    
+        rooms=self.chat_db
+        self.user_db[request.name]=False
 
-        #while True and not self.user_db[request.name]:
+        while True and not self.user_db[request.name]:
             while len(rooms)>last_index:
                 room=self.chat_db[last_index]
                 last_index+=1
@@ -161,6 +173,7 @@ class ChatServicer(chat_pb2_grpc.ChatServicer):#inheriting here from the protobu
         self.user_db[request.user.name]=False
         for room in self.chat_db:
             if room.name==request.room_name:
+                      #if the room name is in used, notify user
                 print("Room "+request.room_name+" is already existed.")
                 return chat_pb2.Validation(message="Cannot create new room. Room "+room.name+" is existed.\n")
             
@@ -171,19 +184,31 @@ class ChatServicer(chat_pb2_grpc.ChatServicer):#inheriting here from the protobu
         new_room=chat_pb2.ChatRoom()
         new_room.name=request.room_name
        
+ 
         self.chat_db.append(new_room)
         return chat_pb2.Validation(message="Room "+request.room_name+" is created.\n")
     
     
-    def FreeUser(self, request, context):
+    # def FreeUser(self, request, context):
+    #     for room in self.chat_db:
+    #         for users in room.chatters:
+    #             for user in users:
+    #                 if user.nam==request.name:
+    #                     users.remove(request)
+    #                     return chat_pb2.FreeUserResponse(validation ="User is chat-free.")
+    #     return chat_pb2.FreeUserResponse(validation="User was not in any room. So user is still chat free.")
+    
+    
+    def UserInChat(self, request, context):
         for room in self.chat_db:
-            for users in room.chatters:
-                for user in users:
-                    if user.nam==request.name:
-                        users.remove(request)
-                        return chat_pb2.FreeUserResponse(validation ="User is chat-free.")
-        return chat_pb2.FreeUserResponse(validation="User was not in any room. So user is still chat free.")
-          
+            for user in room.chatters:
+                if user.name==request.user_name:
+                    return chat_pb2.Boolean(result=True)
+        return chat_pb2.Boolean(result=False)
+    
+    
+    
+    
 def serve():    
     server =grpc.server(futures.ThreadPoolExecutor(max_workers=MAX_THREADS))
     
@@ -195,9 +220,9 @@ def serve():
     server.start()
     
     server.wait_for_termination()
-    print("Server terminated?")
+    print("Server terminated")
     
 SERVER_PORT= "50055"
-MAX_THREADS= 10
+MAX_THREADS= 100
 logging.basicConfig()
 serve()

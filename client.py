@@ -43,14 +43,14 @@ class Client:
         self.window = window
 
         self.in_chat = False  # shared
-        self.in_chat = threading.Lock()
+        #self.in_chat_lock = threading.Lock()
 
         self.room_name = None  # share
-        self.room_name = threading.Lock()
+       # self.room_name = threading.Lock()
 
         self.setup_ui()
         self.stream = None  # shared
-        self.stream = threading.Lock()
+        #self.stream = threading.Lock()
 
         self.queue = []  # shared non block, input append, output, pop(0)
 
@@ -110,17 +110,15 @@ class Client:
 
             if self.room_name != "":
                 self.stream = self.stub.JoinChat(request)
-                flag=False
-                for m in self.stream:  # self.stub.JoinChat(request):
+
+                for m in self.stream:
 
                     if m.HasField("message"):
                         if not self.in_chat:
                             self.console.insert(
                                 END, "\n{} has just joined the chat {}.\n".format(self.username, chat_name))
                         self.in_chat = True
-                        if not flag:
-                            print("In chat is set to True in the message join chat")
-                            flag=True
+
                         print("User "+self.username +
                               " just joined the chat "+self.room_name)
 
@@ -133,16 +131,12 @@ class Client:
                         self.room_name = None
                         return
                     elif m.HasField("join_confirm"):
-                       # print("There is no message in the chat. "+m.join_confirm)
                         
                         if not self.in_chat:
                             print("it' false")
                             self.console.insert(END, m.join_confirm)
                       
                         self.in_chat = True
-                        if not flag:
-                            flag=True
-                            print("in chat is set to true in the join confirm branch")
 
                 print("End of loop join_chat response")
 
@@ -306,7 +300,7 @@ class Client:
                     self.queue.pop(0)
 
     def send_message(self, room_name, message):
-        if self.room_name is not None and self.in_chat == True:
+        #if self.room_name is not None and self.in_chat == True:
 
             request = chat_pb2.SendMessageRequest(
                 user=chat_pb2.User(name=self.username),
@@ -314,8 +308,12 @@ class Client:
                 room_name=self.room_name
             )
             response = self.stub.SendMessage(request)
-        else:
-            self.console.insert(END, "You are not in any chat room.\n")
+            if response.HasField("message"):
+                print("Reposne in non send is ")
+                print(response.message)
+                self.console.insert(END,response.message)
+        #else:
+                self.console.insert(END, "You are not in any chat room.\n")
 
     def leave_chat(self):
         if self.in_chat:
@@ -352,6 +350,10 @@ class Client:
             END, "\t5. To create a new chatroom: --create_chat [room name]\n")
         self.console.insert(END, "\t6. To leave the chatroom: --leave_chat\n")
         self.console.insert(END, "\t7. Help: --help\n\n")
+        
+        
+
+        
 
 
 if __name__ == "__main__":

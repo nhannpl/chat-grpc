@@ -2,6 +2,9 @@
     "Math": {
         "messages": {"Alice @2024-02-08T12:00:00":"Hello, I am alice", "Branden @2024-02-08T12:02:00":"Hello Alice, I am Branden", "Alice @2024-02-08T12:00:03":"Nice to meet you."},
         "chatters": [
+            "Alice",
+            "Clara",
+            "Thanh"
 
         ]
     },
@@ -13,9 +16,9 @@
         ]
     },
     "CS": {
-        "messages": {"Ara @2024-02-08T12:00:00":"Hi class!",
-                        "Edward @2024-02-08T12:00:07":"Hello.",
-                        "Ara @2024-02-08T12:00:20":"Let's meet at the school."},
+        "messages": {"Ara @2024-02-08T12:00:00":"Hi everyone!",
+                        "Edward @2024-02-08T12:00:07":"Hello Alice!",
+                        "Ara @2024-02-08T12:00:20":"I hope you have a great weekend."},
         "chatters": [
             "Ara",
             "Edward"

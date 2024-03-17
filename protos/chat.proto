@@ -9,11 +9,6 @@ option java_multiple_files = true;
 
 service Chat
 {
-    //no stream
-    //rpc Login(User) returns (Validation) {}
-
-   // rpc Messaging(stream StreamRequest) returns (StreamResponse){}
-
    //1
    rpc ListChatRooms(User) returns (stream ChatRoom){}
 
@@ -24,7 +19,7 @@ service Chat
    rpc JoinChat(JoinChatRequest) returns (stream JoinChatResponse){}
 
 
-   rpc SendMessage(SendMessageRequest) returns (Empty){}
+   rpc SendMessage(SendMessageRequest) returns (SendMessageResponse){}
 
    rpc TerminateStream(User) returns(Empty){}
 
@@ -33,20 +28,26 @@ service Chat
     //4
     rpc CreateRoom(RequestCreateNewRoom) returns (Validation){}
 
-
     //6 
     rpc LeaveRoom(RequestLeaveRoom) returns (Empty){}
 
-    rpc FreeUser(User) returns (FreeUserResponse){}
+    rpc UserInChat(User) returns (Boolean){}
 
-
-
-   //rpc Stream(Request) returns (stream Response){}
 
 }
 
-message FreeUserResponse{
-    string validation=1;
+message SendMessageResponse{
+    oneof event{
+        Empty empty=1;
+        string message=2;
+    }
+}
+
+
+message Boolean 
+{
+        bool result = 1;
+    
 }
 
 message UserListResponse{
@@ -68,6 +69,8 @@ message JoinChatResponse{
 message Error{
     string error_message =1;
 }
+
+
 message RequestCreateNewRoom{
     string room_name=1;
     User user=2;
@@ -112,37 +115,8 @@ message Validation{
     string message=1;
 }
 
-message Response
-{
-//    google.protobuf.Timestamp timestamp = 1;
-
-//    string reponse_info=1;
-
-    oneof content {
-
-        ChatRoom chatroom = 1;
-        User user = 2;
-
-
-        Message client_message = 3;
-        string info_message= 4;
-
-    }
-    
-}
-
 message Message {
     google.protobuf.Timestamp timestamp = 1;
     User user = 2;
     string message = 3;
 }
-
-
-message Request{
-    string command =1;
- 
-    optional string chat_name=2;
-    optional User user_request =3;
-    
-}
-

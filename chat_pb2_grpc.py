@@ -6,9 +6,7 @@ import chat_pb2 as chat__pb2
 
 
 class ChatStub(object):
-    """no stream
-    rpc Login(User) returns (Validation) {}
-    """
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -34,7 +32,7 @@ class ChatStub(object):
         self.SendMessage = channel.unary_unary(
                 '/chat.Chat/SendMessage',
                 request_serializer=chat__pb2.SendMessageRequest.SerializeToString,
-                response_deserializer=chat__pb2.Empty.FromString,
+                response_deserializer=chat__pb2.SendMessageResponse.FromString,
                 )
         self.TerminateStream = channel.unary_unary(
                 '/chat.Chat/TerminateStream',
@@ -56,17 +54,18 @@ class ChatStub(object):
                 request_serializer=chat__pb2.RequestLeaveRoom.SerializeToString,
                 response_deserializer=chat__pb2.Empty.FromString,
                 )
+        self.UserInChat = channel.unary_unary(
+                '/chat.Chat/UserInChat',
+                request_serializer=chat__pb2.User.SerializeToString,
+                response_deserializer=chat__pb2.Boolean.FromString,
+                )
 
 
 class ChatServicer(object):
-    """no stream
-    rpc Login(User) returns (Validation) {}
-    """
+    """Missing associated documentation comment in .proto file."""
 
     def ListChatRooms(self, request, context):
-        """rpc Messaging(stream StreamRequest) returns (StreamResponse){}
-
-        1
+        """1
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -118,6 +117,12 @@ class ChatServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UserInChat(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChatServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -139,7 +144,7 @@ def add_ChatServicer_to_server(servicer, server):
             'SendMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.SendMessage,
                     request_deserializer=chat__pb2.SendMessageRequest.FromString,
-                    response_serializer=chat__pb2.Empty.SerializeToString,
+                    response_serializer=chat__pb2.SendMessageResponse.SerializeToString,
             ),
             'TerminateStream': grpc.unary_unary_rpc_method_handler(
                     servicer.TerminateStream,
@@ -161,6 +166,11 @@ def add_ChatServicer_to_server(servicer, server):
                     request_deserializer=chat__pb2.RequestLeaveRoom.FromString,
                     response_serializer=chat__pb2.Empty.SerializeToString,
             ),
+            'UserInChat': grpc.unary_unary_rpc_method_handler(
+                    servicer.UserInChat,
+                    request_deserializer=chat__pb2.User.FromString,
+                    response_serializer=chat__pb2.Boolean.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'chat.Chat', rpc_method_handlers)
@@ -169,9 +179,7 @@ def add_ChatServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Chat(object):
-    """no stream
-    rpc Login(User) returns (Validation) {}
-    """
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def ListChatRooms(request,
@@ -237,7 +245,7 @@ class Chat(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/chat.Chat/SendMessage',
             chat__pb2.SendMessageRequest.SerializeToString,
-            chat__pb2.Empty.FromString,
+            chat__pb2.SendMessageResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -306,5 +314,22 @@ class Chat(object):
         return grpc.experimental.unary_unary(request, target, '/chat.Chat/LeaveRoom',
             chat__pb2.RequestLeaveRoom.SerializeToString,
             chat__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UserInChat(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/chat.Chat/UserInChat',
+            chat__pb2.User.SerializeToString,
+            chat__pb2.Boolean.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nchat.proto\x12\x04\x63hat\x1a\x1fgoogle/protobuf/timestamp.proto\"^\n\x10UserListResponse\x12\x1a\n\x04user\x18\x01 \x01(\x0b\x32\n.chat.UserH\x00\x12&\n\nvalidation\x18\x02 \x01(\x0b\x32\x10.chat.ValidationH\x00\x42\x06\n\x04info\"{\n\x10JoinChatResponse\x12 \n\x07message\x18\x01 \x01(\x0b\x32\r.chat.MessageH\x00\x12&\n\nvalidation\x18\x02 \x01(\x0b\x32\x10.chat.ValidationH\x00\x12\x16\n\x0cjoin_confirm\x18\x03 \x01(\tH\x00\x42\x05\n\x03rep\"C\n\x14RequestCreateNewRoom\x12\x11\n\troom_name\x18\x01 \x01(\t\x12\x18\n\x04user\x18\x02 \x01(\x0b\x32\n.chat.User\"R\n\x12SendMessageRequest\x12\x18\n\x04user\x18\x01 \x01(\x0b\x32\n.chat.User\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\troom_name\x18\x03 \x01(\t\";\n\x13RequestUserRoomList\x12\x11\n\troom_name\x18\x01 \x01(\t\x12\x11\n\tuser_name\x18\x02 \x01(\t\"8\n\x10RequestLeaveRoom\x12\x11\n\troom_name\x18\x01 \x01(\t\x12\x11\n\tuser_name\x18\x02 \x01(\t\"\x07\n\x05\x45mpty\"W\n\x08\x43hatRoom\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1c\n\x08\x63hatters\x18\x02 \x03(\x0b\x32\n.chat.User\x12\x1f\n\x08messages\x18\x03 \x03(\x0b\x32\r.chat.Message\">\n\x0fJoinChatRequest\x12\x11\n\troom_name\x18\x01 \x01(\t\x12\x18\n\x04user\x18\x02 \x01(\x0b\x32\n.chat.User\"\x14\n\x04User\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1d\n\nValidation\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x96\x01\n\x08Response\x12\"\n\x08\x63hatroom\x18\x01 \x01(\x0b\x32\x0e.chat.ChatRoomH\x00\x12\x1a\n\x04user\x18\x02 \x01(\x0b\x32\n.chat.UserH\x00\x12\'\n\x0e\x63lient_message\x18\x03 \x01(\x0b\x32\r.chat.MessageH\x00\x12\x16\n\x0cinfo_message\x18\x04 \x01(\tH\x00\x42\t\n\x07\x63ontent\"c\n\x07Message\x12-\n\ttimestamp\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x18\n\x04user\x18\x02 \x01(\x0b\x32\n.chat.User\x12\x0f\n\x07message\x18\x03 \x01(\t\"x\n\x07Request\x12\x0f\n\x07\x63ommand\x18\x01 \x01(\t\x12\x16\n\tchat_name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12%\n\x0cuser_request\x18\x03 \x01(\x0b\x32\n.chat.UserH\x01\x88\x01\x01\x42\x0c\n\n_chat_nameB\x0f\n\r_user_request2\xbf\x03\n\x04\x43hat\x12/\n\rListChatRooms\x12\n.chat.User\x1a\x0e.chat.ChatRoom\"\x00\x30\x01\x12\x45\n\x0cListUserRoom\x12\x19.chat.RequestUserRoomList\x1a\x16.chat.UserListResponse\"\x00\x30\x01\x12=\n\x08JoinChat\x12\x15.chat.JoinChatRequest\x1a\x16.chat.JoinChatResponse\"\x00\x30\x01\x12\x36\n\x0bSendMessage\x12\x18.chat.SendMessageRequest\x1a\x0b.chat.Empty\"\x00\x12,\n\x0fTerminateStream\x12\n.chat.User\x1a\x0b.chat.Empty\"\x00\x12(\n\x0bResetStream\x12\n.chat.User\x1a\x0b.chat.Empty\"\x00\x12<\n\nCreateRoom\x12\x1a.chat.RequestCreateNewRoom\x1a\x10.chat.Validation\"\x00\x12\x32\n\tLeaveRoom\x12\x16.chat.RequestLeaveRoom\x1a\x0b.chat.Empty\"\x00\x42\x02P\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nchat.proto\x12\x04\x63hat\x1a\x1fgoogle/protobuf/timestamp.proto\"O\n\x13SendMessageResponse\x12\x1c\n\x05\x65mpty\x18\x01 \x01(\x0b\x32\x0b.chat.EmptyH\x00\x12\x11\n\x07message\x18\x02 \x01(\tH\x00\x42\x07\n\x05\x65vent\"\x19\n\x07\x42oolean\x12\x0e\n\x06result\x18\x01 \x01(\x08\"^\n\x10UserListResponse\x12\x1a\n\x04user\x18\x01 \x01(\x0b\x32\n.chat.UserH\x00\x12&\n\nvalidation\x18\x02 \x01(\x0b\x32\x10.chat.ValidationH\x00\x42\x06\n\x04info\"{\n\x10JoinChatResponse\x12 \n\x07message\x18\x01 \x01(\x0b\x32\r.chat.MessageH\x00\x12&\n\nvalidation\x18\x02 \x01(\x0b\x32\x10.chat.ValidationH\x00\x12\x16\n\x0cjoin_confirm\x18\x03 \x01(\tH\x00\x42\x05\n\x03rep\"\x1e\n\x05\x45rror\x12\x15\n\rerror_message\x18\x01 \x01(\t\"C\n\x14RequestCreateNewRoom\x12\x11\n\troom_name\x18\x01 \x01(\t\x12\x18\n\x04user\x18\x02 \x01(\x0b\x32\n.chat.User\"R\n\x12SendMessageRequest\x12\x18\n\x04user\x18\x01 \x01(\x0b\x32\n.chat.User\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\troom_name\x18\x03 \x01(\t\";\n\x13RequestUserRoomList\x12\x11\n\troom_name\x18\x01 \x01(\t\x12\x11\n\tuser_name\x18\x02 \x01(\t\"8\n\x10RequestLeaveRoom\x12\x11\n\troom_name\x18\x01 \x01(\t\x12\x11\n\tuser_name\x18\x02 \x01(\t\"\x07\n\x05\x45mpty\"W\n\x08\x43hatRoom\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1c\n\x08\x63hatters\x18\x02 \x03(\x0b\x32\n.chat.User\x12\x1f\n\x08messages\x18\x03 \x03(\x0b\x32\r.chat.Message\">\n\x0fJoinChatRequest\x12\x11\n\troom_name\x18\x01 \x01(\t\x12\x18\n\x04user\x18\x02 \x01(\x0b\x32\n.chat.User\"\x14\n\x04User\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1d\n\nValidation\x12\x0f\n\x07message\x18\x01 \x01(\t\"c\n\x07Message\x12-\n\ttimestamp\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x18\n\x04user\x18\x02 \x01(\x0b\x32\n.chat.User\x12\x0f\n\x07message\x18\x03 \x01(\t2\xf8\x03\n\x04\x43hat\x12/\n\rListChatRooms\x12\n.chat.User\x1a\x0e.chat.ChatRoom\"\x00\x30\x01\x12\x45\n\x0cListUserRoom\x12\x19.chat.RequestUserRoomList\x1a\x16.chat.UserListResponse\"\x00\x30\x01\x12=\n\x08JoinChat\x12\x15.chat.JoinChatRequest\x1a\x16.chat.JoinChatResponse\"\x00\x30\x01\x12\x44\n\x0bSendMessage\x12\x18.chat.SendMessageRequest\x1a\x19.chat.SendMessageResponse\"\x00\x12,\n\x0fTerminateStream\x12\n.chat.User\x1a\x0b.chat.Empty\"\x00\x12(\n\x0bResetStream\x12\n.chat.User\x1a\x0b.chat.Empty\"\x00\x12<\n\nCreateRoom\x12\x1a.chat.RequestCreateNewRoom\x1a\x10.chat.Validation\"\x00\x12\x32\n\tLeaveRoom\x12\x16.chat.RequestLeaveRoom\x1a\x0b.chat.Empty\"\x00\x12)\n\nUserInChat\x12\n.chat.User\x1a\r.chat.Boolean\"\x00\x42\x02P\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,34 +23,36 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'chat_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['DESCRIPTOR']._options = None
   _globals['DESCRIPTOR']._serialized_options = b'P\001'
-  _globals['_USERLISTRESPONSE']._serialized_start=53
-  _globals['_USERLISTRESPONSE']._serialized_end=147
-  _globals['_JOINCHATRESPONSE']._serialized_start=149
-  _globals['_JOINCHATRESPONSE']._serialized_end=272
-  _globals['_REQUESTCREATENEWROOM']._serialized_start=274
-  _globals['_REQUESTCREATENEWROOM']._serialized_end=341
-  _globals['_SENDMESSAGEREQUEST']._serialized_start=343
-  _globals['_SENDMESSAGEREQUEST']._serialized_end=425
-  _globals['_REQUESTUSERROOMLIST']._serialized_start=427
-  _globals['_REQUESTUSERROOMLIST']._serialized_end=486
-  _globals['_REQUESTLEAVEROOM']._serialized_start=488
-  _globals['_REQUESTLEAVEROOM']._serialized_end=544
-  _globals['_EMPTY']._serialized_start=546
-  _globals['_EMPTY']._serialized_end=553
-  _globals['_CHATROOM']._serialized_start=555
-  _globals['_CHATROOM']._serialized_end=642
-  _globals['_JOINCHATREQUEST']._serialized_start=644
-  _globals['_JOINCHATREQUEST']._serialized_end=706
-  _globals['_USER']._serialized_start=708
-  _globals['_USER']._serialized_end=728
-  _globals['_VALIDATION']._serialized_start=730
-  _globals['_VALIDATION']._serialized_end=759
-  _globals['_RESPONSE']._serialized_start=762
-  _globals['_RESPONSE']._serialized_end=912
-  _globals['_MESSAGE']._serialized_start=914
-  _globals['_MESSAGE']._serialized_end=1013
-  _globals['_REQUEST']._serialized_start=1015
-  _globals['_REQUEST']._serialized_end=1135
-  _globals['_CHAT']._serialized_start=1138
-  _globals['_CHAT']._serialized_end=1585
+  _globals['_SENDMESSAGERESPONSE']._serialized_start=53
+  _globals['_SENDMESSAGERESPONSE']._serialized_end=132
+  _globals['_BOOLEAN']._serialized_start=134
+  _globals['_BOOLEAN']._serialized_end=159
+  _globals['_USERLISTRESPONSE']._serialized_start=161
+  _globals['_USERLISTRESPONSE']._serialized_end=255
+  _globals['_JOINCHATRESPONSE']._serialized_start=257
+  _globals['_JOINCHATRESPONSE']._serialized_end=380
+  _globals['_ERROR']._serialized_start=382
+  _globals['_ERROR']._serialized_end=412
+  _globals['_REQUESTCREATENEWROOM']._serialized_start=414
+  _globals['_REQUESTCREATENEWROOM']._serialized_end=481
+  _globals['_SENDMESSAGEREQUEST']._serialized_start=483
+  _globals['_SENDMESSAGEREQUEST']._serialized_end=565
+  _globals['_REQUESTUSERROOMLIST']._serialized_start=567
+  _globals['_REQUESTUSERROOMLIST']._serialized_end=626
+  _globals['_REQUESTLEAVEROOM']._serialized_start=628
+  _globals['_REQUESTLEAVEROOM']._serialized_end=684
+  _globals['_EMPTY']._serialized_start=686
+  _globals['_EMPTY']._serialized_end=693
+  _globals['_CHATROOM']._serialized_start=695
+  _globals['_CHATROOM']._serialized_end=782
+  _globals['_JOINCHATREQUEST']._serialized_start=784
+  _globals['_JOINCHATREQUEST']._serialized_end=846
+  _globals['_USER']._serialized_start=848
+  _globals['_USER']._serialized_end=868
+  _globals['_VALIDATION']._serialized_start=870
+  _globals['_VALIDATION']._serialized_end=899
+  _globals['_MESSAGE']._serialized_start=901
+  _globals['_MESSAGE']._serialized_end=1000
+  _globals['_CHAT']._serialized_start=1003
+  _globals['_CHAT']._serialized_end=1507
 # @@protoc_insertion_point(module_scope)
